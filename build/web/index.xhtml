@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Buzz System</title>
+        <h:outputStylesheet name="css/Normalize.css"/>
+        <h:outputStylesheet name="css/maincss.css"/>
+    </h:head>
+    <h:body>
+        <h1>Buzz System</h1>
+        <br />
+        <div id="main-container">
+            <div id="tab">
+                <h:button id="tab-content" outcome="/episode/List" value=" الحلقات"/>
+
+                <h:button id="tab-content" outcome="/publicFigure/List" value="الشخصيات العامة"/>
+
+                <h:button id="tab-content" outcome="/questionPoint/List" value=" نقاط الأسئلة"/>
+
+                <h:button id="tab-content" outcome="/questionSubject/List" value="المواد المتعلقة بالأسئلة"/>
+
+                <h:button id="tab-content" outcome="/school/List" value="المدارس"/>
+
+                <h:button id="tab-content" outcome="/stage/List" value="المراحل"/>
+
+                <h:button id="tab-content" outcome="/question/List" value="الأسئلة"/>
+            </div>
+        </div>
+    </h:body>
+</html>
+
