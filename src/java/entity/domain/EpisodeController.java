@@ -75,7 +75,7 @@ public class EpisodeController implements Serializable {
     public String prepareCreate() {
         current = new Episode();
         selectedItemIndex = -1;
-        return "Create";
+        return "/episode/Create";
     }
 
     public String create() {
