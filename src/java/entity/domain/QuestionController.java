@@ -61,7 +61,7 @@ public class QuestionController implements Serializable {
 
     public void doUpload() throws MessagingException {
         if (image != null) {
-                    System.out.println("inside if.........." + image);
+            System.out.println("inside if.........." + image);
 
             String fileFullPath = "e:\\" + new SimpleDateFormat("yyyyMMddHHmmssSSS")
                     .format(new Date()) + image.getSubmittedFileName();
@@ -81,6 +81,11 @@ public class QuestionController implements Serializable {
             System.out.println("Saving......." + fileFullPath);
             current.setImageVideoPath(fileFullPath);
         }
+    }
+
+    public void resetQuestions() {
+        ejbFacade.resetQuestions("0");
+        prepareList();
     }
 
     public String create() throws MessagingException {
