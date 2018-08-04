@@ -34,6 +34,12 @@ public abstract class AbstractFacade<T> {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
 
+    public void resetQuestions(String hide) {
+        getEntityManager().createQuery("UPDATE Question set hide = :hide")
+                .setParameter("hide", hide)
+                .executeUpdate();
+    }
+
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
@@ -60,5 +66,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
 }
