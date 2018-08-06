@@ -60,9 +60,7 @@ public class QuestionController implements Serializable {
     }
 
     public int doUpload() throws MessagingException {
-        if (image != null) {
-            System.out.println("inside if.........." + image);
-
+        if (!image.getSubmittedFileName().equals("")) {
             String fileFullPath = "c:\\data\\RayanTv\\" + new SimpleDateFormat("yyyyMMddHHmmssSSS")
                     .format(new Date()) + image.getSubmittedFileName();
             try {
@@ -79,9 +77,8 @@ public class QuestionController implements Serializable {
                 System.out.println("Unable to save file due to ......." + e.getMessage());
                 return 1;
             }
-            System.out.println("Saving......." + fileFullPath);
             current.setImageVideoPath(fileFullPath);
-        }
+        } 
         return 0;
     }
 
@@ -91,8 +88,6 @@ public class QuestionController implements Serializable {
     }
 
     public String create() throws MessagingException {
-        current.setId(null);
-        System.out.println("create......................" + current.getId());
         if (0 == doUpload()) {
             try {
                 getFacade().create(current);
@@ -110,12 +105,10 @@ public class QuestionController implements Serializable {
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
-
                 @Override
                 public int getItemsCount() {
                     return getFacade().count();
                 }
-
                 @Override
                 public DataModel createPageDataModel() {
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
@@ -183,6 +176,10 @@ public class QuestionController implements Serializable {
 
     private void performDestroy() {
         try {
+            if (!current.getImageVideoPath().equals(null)) {
+                System.out.println("Deleting " + current.getImageVideoPath() + ".");
+                new File(current.getImageVideoPath()).delete();
+            }
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("QuestionDeleted"));
         } catch (Exception e) {
