@@ -59,11 +59,11 @@ public class QuestionController implements Serializable {
         return ejbFacade;
     }
 
-    public void doUpload() throws MessagingException {
+    public int doUpload() throws MessagingException {
         if (image != null) {
             System.out.println("inside if.........." + image);
 
-            String fileFullPath = "e:\\" + new SimpleDateFormat("yyyyMMddHHmmssSSS")
+            String fileFullPath = "c:\\data\\RayanTv\\" + new SimpleDateFormat("yyyyMMddHHmmssSSS")
                     .format(new Date()) + image.getSubmittedFileName();
             try {
                 InputStream inputStream = image.getInputStream();
@@ -76,11 +76,13 @@ public class QuestionController implements Serializable {
                     fileOutputStream.write(buffer, 0, length);
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Unable to save file due to ......." + e.getMessage());
+                return 1;
             }
             System.out.println("Saving......." + fileFullPath);
             current.setImageVideoPath(fileFullPath);
         }
+        return 0;
     }
 
     public void resetQuestions() {
@@ -89,15 +91,20 @@ public class QuestionController implements Serializable {
     }
 
     public String create() throws MessagingException {
-        doUpload();
-        try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("QuestionCreated"));
-            return prepareCreate();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
+        current.setId(null);
+        System.out.println("create......................" + current.getId());
+        if (0 == doUpload()) {
+            try {
+                getFacade().create(current);
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("QuestionCreated"));
+                return prepareCreate();
+            } catch (Exception e) {
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        } else {
+            System.out.println("create function ........... Question is not added.");
         }
+        return "failed_to_create";
     }
 
     public PaginationHelper getPagination() {

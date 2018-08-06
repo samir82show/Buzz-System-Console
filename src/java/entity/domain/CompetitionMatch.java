@@ -10,11 +10,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 /**
  * @author sawad
  */
 @Entity
+@Table(name = "competition_match")
 public class CompetitionMatch implements Serializable {
 
     @Id
