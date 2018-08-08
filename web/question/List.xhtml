@@ -138,12 +138,12 @@
                     <br />
                     <br />
                     <div class="centrlize">
-                        <h:commandLink class="lnk" action="#{questionController.prepareCreate}" value="#{bundle.ListQuestionCreateLink}"/>
                         <h:form>
-                            <h:commandButton class="lnk" action="#{questionController.resetQuestions()}" value="Reset All Questions">
+                            <h:commandLink class="lnk" action="#{questionController.resetQuestions()}" value="إعادة ضبط الأسئلة">
                                 <f:ajax execute="@this" render=":table_form"/>
-                            </h:commandButton>
-                        </h:form><br /><br />
+                            </h:commandLink>
+                        </h:form>
+                        <h:commandLink class="lnk" action="#{questionController.prepareCreate}" value="#{bundle.ListQuestionCreateLink}"/>
                         <h:link class="lnk" outcome="/index" value="#{bundle.ListQuestionIndexLink}"/>
                     </div>
                 </h:form>
